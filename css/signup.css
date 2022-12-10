@@ -87,6 +87,10 @@ body{
 .signup-form a:hover{
     text-decoration: underline;
 }
+
+.signup-form input[type="checkbox"]{
+    margin-top: 2px;
+}
  .formy{
     font-size: 14px;
 

@@ -23,19 +23,19 @@
 
             <div class="form-group">
                 <label for="user_name">Username</label><br>
-                <input type="text" name="user_email"  class="form-control" placeholder="" 
+                <input type="text" name="user_name"  class="form-control" placeholder="" 
                 autocomplete="off" required>
             </div>
 
             <div class="form-group">
-                <label for="password">Password</label><br>
-                <input type="password" name="password"  class="form-control" placeholder="Password" 
+                <label for="user_pass">Password</label><br>
+                <input type="password" name="user_pass"  class="form-control" placeholder="Password" 
                 autocomplete="off" required>
             </div>
 
             <div class="form-group">
-                <label for="email">Email</label><br>
-                <input type="email" name="email"  class="form-control" placeholder="someone@site.com" 
+                <label for="user_email">Email</label><br>
+                <input type="email" name="user_email"  class="form-control" placeholder="someone@site.com" 
                 autocomplete="off" required>
             </div>
 
@@ -53,8 +53,8 @@
             </div>
 
             <div class="form-group">
-                <label for="gender">Gender</label><br>
-                <select name="gender" id="gender" class="form-control" required>
+                <label for="user_gender">Gender</label><br>
+                <select name="user_gender" id="gender" class="form-control" required>
                     <option value="" disabled="">Select your Gender</option>
                     <option value="male">Male</option>
                     <option value="femlae">Female</option>
@@ -72,11 +72,15 @@
                 <button type="submit" name="sign_up" class="btn btn-primary btn-lg btn-block px-5">Sign Up</button>
             </div>
 
-            <!--<?php //include("signup_user.php"); ?> -->
+
+
+            <?php include("signup_user.php"); ?> 
+
+
         </form>
 
         <div class="text-center small formy" style= "color:674288;">Already have an account?  
-            <a href="sign_up.php">Signin Here</a>
+            <a href="signin.php">Signin Here</a>
         </div>
     </div>
 </body>

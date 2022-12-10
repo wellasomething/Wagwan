@@ -39,11 +39,11 @@
                 <button type="submit" name="sign_in" class="btn btn-primary btn-lg btn-block px-5">Sign In</button>
             </div>
 
-            <!--<?php //include("signin_user.php"); ?> -->
+            <?php include("signin_user.php"); ?> 
         </form>
 
         <div class="text-center small formy" style= "color:674288;">You don't have an account?  
-            <a href="sign_up.php">Create One</a>
+            <a href="signup.php">Create One</a>
         </div>
     </div>
 </body>
