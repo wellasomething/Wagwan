@@ -1,4 +1,6 @@
 <!DOCTYPE html>
+
+                        
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -37,6 +39,13 @@
                 <div class="row">
                     <!-- get user information on who is logged in -->
                     <?php
+                  session_start();
+                  include("include/connection.php");
+                    if(isset($_SESSION["user_name"])){
+                        header("location:signin.php");
+                   
+                  
+                    
                         $user= $_SESSION['user_email'];
                         $get_user = "SELECT * from users where user_email='$user'";
                         $run_user = mysqli_query($con, $get_user);
@@ -55,16 +64,16 @@
                             $get_username = $_GET['user_name'];
                             $get_user= "SELECT * from users where user_name='$get_username'";
                             $run_user= mysqli_query($con, $get_user);
-                            $row = mysqli_fetch_array($run_user);
+                            $row_user = mysqli_fetch_array($run_user);
 
-                            $username = $row['user_name'];
-                            $user_profile_image= $row['user_profile'];
+                            $username = $row_user['user_name'];
+                            $user_profile_image= $row_user['user_profile'];
 
                         }
 
                         $total_messages = "SELECT * FROM users_chat where 
-                        (sender_username='$user_name' AND receiver_name='$username') OR
-                        (receiver_username='$user_name' AND sender_name='$username')";
+                        (sender_username='$user_name' AND receiver_username='$username') OR
+                        (receiver_username='$user_name' AND sender_username='$username')";
 
                         $run_messages = mysqli_query($con, $total_messages);
                         $total = mysqli_num_row($run_messages);
@@ -76,7 +85,7 @@
                         </div>
                         <div class="right-header-details">
 
-                            <form method="post">
+                            <form method="post" >
                                 <p><?php echo "$username"; ?></p>
                                 <span><?php echo "$total"; ?> Messages</span> &nbsp &nbsp
                                 <button class="btn btn-danger" type="submit" name="logout">
@@ -103,8 +112,8 @@
                             receiver_username='$user_name'");
 
                             $sel_msg = "SELECT * FROM users_chat where 
-                            (sender_username='$user_name' AND receiver_name='$username') OR
-                            (receiver_username='$user_name' AND sender_name='$username') ORDER by 1 ASC";
+                            (sender_username='$user_name' AND receiver_username='$username') OR
+                            (receiver_username='$user_name' AND sender_username='$username') ORDER by 1 ASC";
     
                             $run_msg= mysqli_query($con, $sel_msg);
 
@@ -121,7 +130,7 @@
                                 if($user_name == $sender_username AND $username == $receiver_username){
                                     echo "
                                         <li>
-                                            <div class="rightside-chat">
+                                            <div class='rightside-chat'>
                                                 <span>
                                                     $username
                                                     <small>$msg_date</small>
@@ -129,21 +138,7 @@
                                                 <p>$msg_content</p>
                                             </div>
                                         </li>
-                                    "
-                                }
-
-                                else if($user_name == $receiver_username AND $username == $sender_username){
-                                    echo "
-                                        <li>
-                                            <div class="rightside-chat">
-                                                <span>
-                                                    $username
-                                                    <small>$msg_date</small>
-                                                </span>
-                                                <p>$msg_content</p>
-                                            </div>
-                                        </li>
-                                    "
+                                    ";
                                 }
                             ?>
                         
@@ -152,16 +147,19 @@
                     <?php 
                             }
                     ?>
+                    
                     </div>
                 </div>
 
                 <div class="row">
                     <div class= "col-md-12 right-chat-textbox">
+                        <Form>
                         <input type="text" autocomplete="off" name="msg_content"
                         placeholder="Write Your Message......">
                         <button class="btn" name="submit">
                             <i class="fa fa-telegram" aria-hidden="true"></i>
                         </button>
+                        </form>
                     </div>
                 </div>
 
@@ -176,12 +174,22 @@
 
         if(msg == ""){
             echo "
-                <div class="alert alert-danger">
+                <div class='alert alert-danger'>
                     <strong>
                         <center>Message was unable to send</center>
                     </strong>
                 </div>
-            "
+            ";
+        }
+
+        else if(strlen(msg) >100){
+            echo "
+            <div class='alert alert-danger'>
+                <strong>
+                    <center>Message is too long</center>
+                </strong>
+            </div>
+        ";
         }
 
         else {
@@ -192,5 +200,7 @@
              $run_insert = mysqli_query($con, $insert);
         }
     }
+                    }
+    ?>
 </body>
 </html>
